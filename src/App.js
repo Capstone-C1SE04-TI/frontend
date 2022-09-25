@@ -1,8 +1,12 @@
 import { BrowserRouter as Router , Route, Routes, Navigate } from 'react-router-dom';
+import { CategoryScale } from 'chart.js';
+import Chart from 'chart.js/auto';
 import Home, { Signup, SignIn, DisplayCoin } from '~/pages';
 import configs from '~/configs';
 import { PrivateRoute, PublicRoute } from './routes/routes-v1';
 import P2P from './pages/P2P';
+
+Chart.register(CategoryScale);
 
 function App() {
     return (

@@ -10,7 +10,7 @@ import validate from '~/helpers/validation';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCaretDown, faCircleXmark, faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 import images from '~/assets/images';
-import 'antd/dist/antd.css';
+
 const cx = classNames.bind(styles);
 
 function Signup() {
@@ -76,7 +76,8 @@ function Signup() {
             };
             fetchApi();
         }
-    }, [formErrors, isSubmit]);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [ isSubmit]);
 
     const handleSubmit = () => {
         setFormErrors(validate(formValues));
@@ -116,7 +117,7 @@ function Signup() {
                     <span>Please fill in your details to create your account.</span>
                 </div>
                 <div className={cx('login-right__form-login')}>
-                    {true && <Spin></Spin>}
+                    {loading && <Spin></Spin>}
                     <div className={cx('login-right__form-login__form-control')}>
                         <label>Username</label>
                         <input
