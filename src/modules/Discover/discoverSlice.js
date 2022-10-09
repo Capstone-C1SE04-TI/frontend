@@ -3,11 +3,19 @@ import { marketOverviewService } from '~/services';
 
 const discoverSlice = createSlice({
     name: 'discoverCoins',
-    initialState: { status: 'idle', coinsList: [], searchText: '' },
+    initialState: {
+        status: 'idle',
+        coinsList: [],
+        searchText: '',
+        filters: {
+            category: '',
+            
+        },
+    },
     reducers: {
         searchFilterChange: (state, action) => {
-            state.searchText = action.payload
-        }
+            state.searchText = action.payload;
+        },
     },
 
     extraReducers: (builder) => {

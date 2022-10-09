@@ -12,6 +12,7 @@ import discoverSlice, { fetchCoinsDiscover } from '~/modules/Discover/discoverSl
 import { coinsRemainingSelector, statusCoinsSelector } from '~/modules/Discover/selector';
 import { Nodata } from '~/components/Icons';
 import useDebounced from '~/hooks';
+import SkeletonCoinItem from './SkeletonCoinItem';
 const cx = classNames.bind(styles);
 
 const NUMBER_ITEM_DISPLAY = 10;
@@ -112,7 +113,7 @@ function MarketOverviewDetail() {
                                         />
                                     ))}
 
-                                {status === 'loading' && <Loading />}
+                                {status === 'loading' && <SkeletonCoinItem card={NUMBER_ITEM_DISPLAY} />}
                             </tbody>
                         </table>
                         {noData && (
