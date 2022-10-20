@@ -8,18 +8,18 @@ const cx = classNames.bind(styles);
 function SharkWalletsCrypto() {
     return (
         <div className={cx('shark-crypto')}>
-            <NavBarSharkWalletsCrypto/>
+            <NavBarSharkWalletsCrypto />
             <table className={cx('table-shark__crypto')}>
                 <thead>
                     <tr>
-                        <th>#</th>
                         <th>Logo</th>
+                        <th>Crypto</th>
                         <th>Quantity</th>
                         <th>Value</th>
                     </tr>
                 </thead>
                 <tbody>
-                   <SharkWalletCryptoItem/>
+                    <SharkWalletCryptoItem />
                 </tbody>
             </table>
         </div>

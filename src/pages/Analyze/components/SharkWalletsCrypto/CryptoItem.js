@@ -6,7 +6,9 @@ import images from '~/assets/images';
 import { Link } from 'react-router-dom';
 
 const cx = classNames.bind(styles);
-function CryptoItem () {
+
+function CryptoItem() {
+
     return (
         <ul className={cx('crypto-item')}>
             <li>
