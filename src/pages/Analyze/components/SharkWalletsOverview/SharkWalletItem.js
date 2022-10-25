@@ -21,9 +21,9 @@ function SharkWalletCoin() {
         <>
             {
                 sharkCoin.map((wallet) => 
-                <tr key={wallet.id}>
-                    <td>#Shark{' '}{wallet.id}</td>
-                    <td>$600,000,000</td>
+                <tr key={wallet.name}>
+                    <td>#Shark{' '}{wallet.name}</td>
+                    <td>${wallet.totalAsset}</td>
                     <td>2.36%</td>
                     <td><StarIcon/></td>
                 </tr>
