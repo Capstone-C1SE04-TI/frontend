@@ -41,6 +41,16 @@ export const getUserInfo = async (userId) => {
     }
 };
 
+export const getUserList = async (userId) => {
+    try {
+        const response = await httpRequest.get('admin/user/list');
+        return response.data;
+    } catch (error) {
+        console.log(error);
+    }
+};
+
+
 export const updateUserInfo = async (body, userId, options = {}) => {
     try {
     

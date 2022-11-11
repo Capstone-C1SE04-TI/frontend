@@ -57,8 +57,8 @@ function SignIn() {
                 break;
 
             case 'successfully':
-                 localStorage.setItem('userInfo', JSON.stringify(user));
-                 navigate('/home-dashboard');
+                localStorage.setItem('userInfo', JSON.stringify(user));
+                navigate('/home-dashboard');
                 break;
             default:
                 break;
@@ -76,7 +76,7 @@ function SignIn() {
                         Authorization: Cookies.get('TI_AUTH_COOKIE') || '',
                     },
                 });
-    
+
                 handleExceptions(response.message, response.user);
                 setLoading(false);
             };
@@ -102,10 +102,9 @@ function SignIn() {
         inputUserRef.current.focus();
     };
 
-
     const closeModal = () => {
-        setShowForgotPassword(false)
-    }
+        setShowForgotPassword(false);
+    };
 
     const openModal = () => {
         setShowForgotPassword(true);
@@ -113,8 +112,8 @@ function SignIn() {
 
     const handleFindCode = (e) => {
         e.preventDefault();
-        console.log("submit");
-}
+        console.log('submit');
+    };
 
     return (
         <div className={cx('wrapper')}>
@@ -189,7 +188,7 @@ function SignIn() {
                                         <input />
                                     </div>
                                     <div className={cx('modal-submit')}>
-                                        <Button text primary small >
+                                        <Button text primary small>
                                             Find
                                         </Button>
                                     </div>
@@ -204,6 +203,23 @@ function SignIn() {
                     <span className={cx('login-right__form-login__already-account')}>
                         Don't have an account? <Link to="/sign-up">Sign up</Link>
                     </span>
+                    <Button
+                        primary
+                        onClick={async () => {
+                            const res = await authService.getUserList();
+                            console.log({data: res.datas });
+                        }}
+                    >
+                        Test2
+                    </Button>
+                    <Button
+                        primary
+                        onClick={async () => {
+                            fetch('http://localhost:4000/admin/user/list').then(res => res.json()).then(res => console.log(res))
+                        }}
+                    >
+                        Test2
+                    </Button>
                 </div>
             </div>
         </div>
