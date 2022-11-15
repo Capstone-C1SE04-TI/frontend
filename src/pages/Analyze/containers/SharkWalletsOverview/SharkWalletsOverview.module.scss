@@ -25,6 +25,7 @@
     background-color: #A697FF;
     padding: 5px 0px;
     border-radius: 12px;
+    height: 100vh;
 }
 
 .shark-search {
@@ -86,5 +87,24 @@
                 cursor: pointer;
             }
         }
+    }
+}
+
+.range {
+    height: 24px;
+}
+
+.search-shark {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 30%;
+    text-transform: uppercase;
+    h4 {
+        margin-right: 10px;
+        font-weight: 500;
+    }
+    input {
+        width: 100%;
     }
 }
