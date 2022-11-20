@@ -7,7 +7,6 @@ import { AvatarIcon, DolarIcon, MenuIcon } from '~/components/Icons';
 import { useDispatch } from 'react-redux';
 import HomeDashboardSlice from '~/modules/HomeDashboard/homeDashboardSlice';
 import Tippy from '@tippyjs/react';
-import Portfolio from '~/pages/HomeDashboard/components/Portfolio/Portfolio';
 import { fetchGetUserInfo } from '~/modules/user/auth/authSlice';
 import { userInfoSelector } from '~/modules/user/auth/selectors';
 import { useEffect, useState } from 'react';
@@ -120,7 +119,7 @@ function LayoutDefault({ children }) {
                     <h3 onClick={connectWallet}>Upgrade Premium</h3>
                     {userId ? (
                         <div className={cx('user-profile__right')}>
-                            <MenuProfile items={userMenu} onChange={handleOnChange}>
+                            <MenuProfile items={userMenu} onChange={handleOnChange} userInfo={userInfo}>
                                 <div className={cx('user-profile')}>
                                     {userInfo ? (
                                         <img
@@ -138,9 +137,9 @@ function LayoutDefault({ children }) {
                                         <svg
                                             stroke="currentColor"
                                             fill="currentColor"
-                                            stroke-width="0"
+                                            strokeWidth="0"
                                             viewBox="0 0 24 24"
-                                            class="text-gray-400 text-14"
+                                            className="text-gray-400 text-14"
                                             height="1em"
                                             width="1em"
                                             xmlns="http://www.w3.org/2000/svg"
@@ -149,7 +148,6 @@ function LayoutDefault({ children }) {
                                             <path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"></path>
                                         </svg>
                                     </div>
-                                    
                                 </div>
                             </MenuProfile>
                         </div>
