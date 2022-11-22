@@ -14,9 +14,10 @@ import Home, {
     Analyze,
     TokenDetail,
     TransactionShark,
+    GainLoss,
 } from './pages';
 
-import { Chart, registerables } from 'chart.js';
+import { Chart, registerables, Interaction } from 'chart.js';
 import ModalSubmitCode from './pages/SignIn/components/ModalFindCode/ModalSubmitCode';
 import ResetPassword from './pages/SignIn/components/ModalFindCode/ResetPassword';
 import ModalFindCode from './pages/SignIn/components/ModalFindCode/ModalFindCode';
@@ -26,16 +27,16 @@ import { ToastContainer } from 'react-toastify';
 import configs from './configs';
 import LayoutDefault from './layouts/LayoutDefault';
 import { useCoinsFetchInterval } from '~/hooks';
+import { CrosshairPlugin, Interpolate } from 'chartjs-plugin-crosshair';
+import zoomPlugin from 'chartjs-plugin-zoom';
 
-Chart.register(...registerables);
+Chart.register(zoomPlugin, ...registerables);
+// Interaction.modes.interpolate = Interpolate;
 
 function App() {
-
     useCoinsFetchInterval();
 
-    
     return (
-
         <div className="app">
             <ToastContainer />
             <Router>
@@ -193,6 +194,18 @@ function App() {
                                 element={
                                     <LayoutDefault>
                                         <ChangePassword />
+                                    </LayoutDefault>
+                                }
+                            />
+                        }
+                    />
+                    <Route
+                        path={configs.routes.gainLoss}
+                        element={
+                            <PublicRoute
+                                element={
+                                    <LayoutDefault>
+                                        <GainLoss />
                                     </LayoutDefault>
                                 }
                             />

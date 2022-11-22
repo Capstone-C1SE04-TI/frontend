@@ -30,8 +30,8 @@ function TransactionShark() {
         <div className={cx('transaction-container__fluid')}>
             <div className={cx('transaction-container')}>
                 <div className={cx('transaction-search')}>
-                    <h1>Search all transactions</h1>
-                    <input placeholder="Enter price $" />
+                    <h1>Search shark transactions</h1>
+                    <input placeholder='Enter shark ID' />
                     <Button primary>Search</Button>
                 </div>
                 <table className={cx('transaction-shark__table')}>
@@ -48,9 +48,9 @@ function TransactionShark() {
                         {transactionShark.length === 0 && <div className="text-center">No data</div>}
                         {transactionShark
                             .filter((tran) => tran.sharkId)
-                            .map((trans, index) => {
-                                return <TransactionSharkItem data={trans} index={index} sharkAddress={sharkAddress} />;
-                            })}
+                            .map((trans, index) => 
+                                 <TransactionSharkItem data={trans} index={index} sharkAddress={sharkAddress} />
+                            )}
                     </tbody>
                 </table>
             </div>

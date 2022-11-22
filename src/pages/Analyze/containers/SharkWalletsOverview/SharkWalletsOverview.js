@@ -5,6 +5,8 @@ import styles from './SharkWalletsOverview.module.scss';
 import SharkWalletsOverviewItem from '../../components/SharkWalletsOverviewItem/';
 import { useSelector, useDispatch } from 'react-redux';
 import {
+
+    searchFilterChangeSelector,
     sharkCryptoStatusSelector,
     sharkRemainingSelector,
 } from '~/modules/SharkWallet/selector';
@@ -13,6 +15,7 @@ import NoData from '~/components/NoData';
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useDebounced } from '~/hooks';
+import TradeItem from './../../components/TradeItem/TradeItem';
 
 
 
@@ -48,14 +51,14 @@ function SharkWalletsOverview() {
 
     const textSearchDebounced = useDebounced(searchText, 500);
     useEffect(() => {
-     
-            dispatch(sharkWalletSlice.actions.searchFilterChange(textSearchDebounced));
-     
+
+        dispatch(sharkWalletSlice.actions.searchFilterChange(textSearchDebounced));
+
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [textSearchDebounced]);
 
 
-    // const searchTextt = useSelector(searchFilterChangeSelector);
+    const searchTextt = useSelector(searchFilterChangeSelector);
 
     return (
         <div className={cx('shark-overview')}>
@@ -90,6 +93,7 @@ function SharkWalletsOverview() {
                         ))}
                 </tbody>
             </table>
+
             {status !== 'loading' && sharksCoin.length === 0 && <NoData />}
         </div>
     );
