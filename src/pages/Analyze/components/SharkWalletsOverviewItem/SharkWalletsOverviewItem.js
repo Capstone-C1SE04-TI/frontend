@@ -22,7 +22,7 @@ function SharkWalletsOverviewItem({ data, userInfo }) {
 
 
     const handleSelectSharkAndSharkAddress = () => {
-        dispatch(sharkWalletSlice.actions.actionSelectedSharkWalletId(data.id));
+        dispatch(sharkWalletSlice.actions.actionSelectedSharkWalletId(data.sharkId));
         dispatch(sharkWalletSlice.actions.actionSelectedSharkWalletAddress(data.walletAddress));
         dispatch(sharkWalletSlice.actions.actionSelectedSharkWalletTotalAssets(data.totalAsset));
         dispatch(sharkWalletSlice.actions.actionSharkInfo(data));
@@ -54,7 +54,7 @@ function SharkWalletsOverviewItem({ data, userInfo }) {
     return (
         <tr className={cx({ 'shark-active': data.id === sharkInfoCurrent.id })} ref={parentRef}>
             <td ref={childrenRef} onClick={handleSelectSharkAndSharkAddress}>
-                #Shark {data.id}
+                #Shark {data.sharkId}
             </td>
             <td onClick={handleSelectSharkAndSharkAddress}>
                 $
