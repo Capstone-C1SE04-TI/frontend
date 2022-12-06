@@ -5,6 +5,8 @@ export const newSharkListSelector = (state) => state.sharkWallet.newSharkList;
 export const sharkCryptoSelector = (state) => state.sharkWallet.sharkCrypto;
 export const searchSharkCryptoSelector = (state) => state.sharkWallet.searchTextCrypto;
 export const sharkCryptoStatusSelector = (state) => state.sharkWallet.status;
+export const statusTransactionSelector = (state) => state.sharkWallet.statusTransaction;
+export const statusCryptoSelector = (state) => state.sharkWallet.statusCrypto;
 export const sharkTransactionHistorySelector = (state) => state.sharkWallet.sharkTransactionHistory;
 export const sharkWalletIdSelector = (state) => state.sharkWallet.sharkWalletId;
 export const sharkWalletAddressSelector = (state) => state.sharkWallet.sharkWalletAddress;

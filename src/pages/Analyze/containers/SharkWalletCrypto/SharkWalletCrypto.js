@@ -10,6 +10,7 @@ import {
     sharkWalletIdSelector,
     sharkRemainingSelector,
     cryptoRemainingSelector,
+    statusCryptoSelector,
 } from '~/modules/SharkWallet/selector';
 import { Spin } from 'antd';
 import NoData from '~/components/NoData';
@@ -19,7 +20,7 @@ function SharkWalletCrypto({ currentTabSharkWallet }) {
     const dispatch = useDispatch();
 
     const cryptosSharkWallet = useSelector(cryptoRemainingSelector);
-    const sharkCryptoStatus = useSelector(sharkCryptoStatusSelector);
+    const sharkCryptoStatus = useSelector(statusCryptoSelector);
     const sharkIdSelected = useSelector(sharkWalletIdSelector);
     const sharksCoin = useSelector(sharkRemainingSelector);
 

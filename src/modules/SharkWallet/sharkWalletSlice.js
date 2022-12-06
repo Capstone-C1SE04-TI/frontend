@@ -5,6 +5,8 @@ import { sharkWalletService } from '~/services';
 const sharkWalletSlice = createSlice({
     name: 'sharkWallet',
     initialState: {
+        statusCrypto: 'idle',
+        statusTransaction: 'idle',
         status: 'idle',
         sharkList: [],
         newSharkList: [],
@@ -67,20 +69,21 @@ const sharkWalletSlice = createSlice({
                 state.sharkWalletId = data[0].id;
                 state.status = 'idle';
             })
+
             .addCase(fetchCryptoSharkWallet.pending, (state, action) => {
-                state.status = 'loading';
+                state.statusCrypto = 'loading';
             })
             .addCase(fetchCryptoSharkWallet.fulfilled, (state, action) => {
                 state.sharkCrypto = action.payload;
-                state.status = 'idle';
+                state.statusCrypto = 'idle';
             })
 
             .addCase(fetchTransactionHistorySharkWallet.pending, (state, action) => {
-                state.status = 'loading';
+                state.statusTransaction = 'loading';
             })
             .addCase(fetchTransactionHistorySharkWallet.fulfilled, (state, action) => {
                 state.sharkTransactionHistory = action.payload;
-                state.status = 'idle';
+                state.statusTransaction = 'idle';
             })
 
             .addCase(fetchFollowSharkWallet.pending, (state, action) => {
@@ -90,7 +93,7 @@ const sharkWalletSlice = createSlice({
                 const { data } = action.payload;
 
                 state.sharkDetail = data;
-              
+
                 state.status = 'idle';
                 const newShark = state.sharkList.map((shark) => {
                     if (shark.sharkId === data._doc.sharkId) {

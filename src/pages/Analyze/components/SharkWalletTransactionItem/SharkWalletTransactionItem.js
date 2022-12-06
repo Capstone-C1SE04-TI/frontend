@@ -7,8 +7,7 @@ import { convertDate, convertTime, numberWithCommas } from '~/helpers';
 const cx = classNames.bind(styles);
 
 function SharkWalletTransactionItem({ data, sharkAddress }) {
-    console.log(data)
-    console.log(sharkAddress)
+
     const handleTransactionTo = useCallback(() => {
         if (sharkAddress === data.to) {
             return `${data.from} → Wallet`;
