@@ -1,0 +1,23 @@
+.portfolio-h1 {
+    h1 {
+        text-transform: uppercase;
+        font-weight: 600;
+        font-size: 30px;
+        text-align: center;
+    }
+}
+
+
+.portfolio-table {
+    font-size: 14px;
+    thead {
+        th {
+            text-align: center;
+            text-transform: uppercase;
+            &:nth-child(2) {
+            text-align: center;
+
+            }
+        }
+    }
+}

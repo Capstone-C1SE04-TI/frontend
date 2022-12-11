@@ -1,21 +1,16 @@
 .nav {
     display: flex;
-    justify-content: flex-start;
+    justify-content: space-between;
     align-items: center;
     font-size: 25px;
     font-weight: 800;
-    padding: 11px 10px;
-    border-bottom: 1px solid #fff;
-    position: sticky;
-    top: 0;
-    left: 0;
-    z-index: 5;
-    background-color: #a697ff;
+    padding: 14px 10px;
+    border-bottom: 1px solid #eff2f5;
+    background-color: #fff;
     p {
         margin-bottom: 0;
     }
 }
-
 
 .nav-item__title {
     margin-bottom: 0;
@@ -26,3 +21,5 @@
         color: #482ee8;
     }
 }
+
+

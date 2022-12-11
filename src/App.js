@@ -14,6 +14,8 @@ import Home, {
     Analyze,
     TokenDetail,
     TransactionShark,
+    GainLoss,
+    PortfolioSharkFollow,
 } from './pages';
 
 import { Chart, registerables, Interaction } from 'chart.js';
@@ -28,8 +30,8 @@ import LayoutDefault from './layouts/LayoutDefault';
 import { useCoinsFetchInterval } from '~/hooks';
 import { CrosshairPlugin, Interpolate } from 'chartjs-plugin-crosshair';
 import zoomPlugin from 'chartjs-plugin-zoom';
-
-Chart.register( zoomPlugin, ...registerables);
+import { Slide, Zoom, Flip, Bounce } from 'react-toastify';
+Chart.register(zoomPlugin, ...registerables);
 // Interaction.modes.interpolate = Interpolate;
 
 function App() {
@@ -37,7 +39,16 @@ function App() {
 
     return (
         <div className="app">
-            <ToastContainer />
+            <ToastContainer
+                autoClose={3000}
+                hideProgressBar={false}
+                closeOnClick={true}
+                pauseOnHover={true}
+                draggable={true}
+                progress={undefined}
+                // theme={'warning'}
+                transition={Flip}
+            />
             <Router>
                 <Routes>
                     <Route path={configs.routes.home} element={<PublicRoute element={<Home />} />} />
@@ -45,7 +56,7 @@ function App() {
                     <Route
                         path={configs.routes.analyze}
                         element={
-                            <PublicRoute
+                            <PrivateRoute
                                 element={
                                     <LayoutDefault>
                                         <Analyze />
@@ -66,22 +77,11 @@ function App() {
                             />
                         }
                     />
-                    <Route
-                        path={configs.routes.tokenDetailL}
-                        element={
-                            <PublicRoute
-                                element={
-                                    <LayoutDefault>
-                                        <TokenDetail />
-                                    </LayoutDefault>
-                                }
-                            />
-                        }
-                    />
+
                     <Route
                         path="/support"
                         element={
-                            <PublicRoute
+                            <PrivateRoute
                                 element={
                                     <LayoutDefault>
                                         <Support />
@@ -105,7 +105,7 @@ function App() {
                     <Route
                         path="/setting"
                         element={
-                            <PublicRoute
+                            <PrivateRoute
                                 element={
                                     <LayoutDefault>
                                         <Setting />
@@ -129,7 +129,7 @@ function App() {
                     <Route
                         path={configs.routes.buyToken}
                         element={
-                            <PublicRoute
+                            <PrivateRoute
                                 element={
                                     <LayoutDefault>
                                         <BuyToken />
@@ -141,7 +141,7 @@ function App() {
                     <Route
                         path={configs.routes.swapToken}
                         element={
-                            <PublicRoute
+                            <PrivateRoute
                                 element={
                                     <LayoutDefault>
                                         <SwapToken />
@@ -153,7 +153,7 @@ function App() {
                     <Route
                         path={configs.routes.tokenDetailL}
                         element={
-                            <PublicRoute
+                            <PrivateRoute
                                 element={
                                     <LayoutDefault>
                                         <TokenDetail />
@@ -193,6 +193,30 @@ function App() {
                                 element={
                                     <LayoutDefault>
                                         <ChangePassword />
+                                    </LayoutDefault>
+                                }
+                            />
+                        }
+                    />
+                    <Route
+                        path={configs.routes.gainLoss}
+                        element={
+                            <PrivateRoute
+                                element={
+                                    <LayoutDefault>
+                                        <GainLoss />
+                                    </LayoutDefault>
+                                }
+                            />
+                        }
+                    />
+                    <Route
+                        path={configs.routes.portfolioSharkFollow}
+                        element={
+                            <PublicRoute
+                                element={
+                                    <LayoutDefault>
+                                        <PortfolioSharkFollow />
                                     </LayoutDefault>
                                 }
                             />

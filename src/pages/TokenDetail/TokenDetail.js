@@ -1,4 +1,5 @@
 import { Col, Row, Select } from 'antd';
+import { useRef } from 'react';
 import classNames from 'classnames/bind';
 import styles from './TokenDetail.module.scss';
 import { useDispatch, useSelector } from 'react-redux';
@@ -10,8 +11,10 @@ import TrendingTokens from './containers/TrendingTokens/TrendingTokens';
 import { useParams } from 'react-router-dom';
 import { useScrollToTop } from '~/hooks';
 
-import  ChartCoinDetail  from '~/pages/ChartCoinDetail/ChartCoinDetail';
+import ChartCoinDetail from '~/pages/ChartCoinDetail/ChartCoinDetail';
 import DetailEachCoinSkeleton from './containers/TokenDetailEachCoin/DetailEachCoinSkeleton';
+import Button from '~/components/Button';
+import Loading from '~/components/Loading';
 
 const cx = classNames.bind(styles);
 const FILTERS_CHART_DATA = ['Day', 'Month', 'Year'];
@@ -24,20 +27,34 @@ function TokenDetail() {
     const statusFetchCoinDetail = useSelector(statusCoinDetailSelector);
     const coinDetail = useSelector(coinsDetailSelector);
     const trendingTokens = useSelector(trendingTokensSelector);
-
+    console.log(coinDetail)
     useScrollToTop();
     useEffect(() => {
         dispatch(fetchCoinsDetail(symbol));
-        dispatch(fetchTrendingTokens());
+        window.scrollTo(0, 0);
     }, [dispatch, symbol]);
+
+    useEffect(() => {
+      
+        dispatch(fetchTrendingTokens());
+    }, [dispatch]);
 
     const handleFilterChart = (time) => {
         setFilterChartByTime(time);
     };
 
-    //    sm={8} xs={12}
+  
+
+    const canvasRef = useRef();
+    const handleResetZoom = () => {
+        if (canvasRef && canvasRef.current) {
+            canvasRef.current.resetZoom();
+        }
+    };
+
     return (
         <div className={cx('wrapper')}>
+            <Loading loading={statusFetchCoinDetail === 'loading'} />
             <div className={cx('wallet-bottom-container')}>
                 <div className={cx('wallet-content-statics')}>
                     <Row>
@@ -45,17 +62,21 @@ function TokenDetail() {
                             {coinDetail ? (
                                 <TokenDetailEachCoin
                                     data={coinDetail}
-                                    community={[
-                                        ...coinDetail.urls.announcement,
-                                        ...coinDetail.urls.reddit,
-                                        ...coinDetail.urls.messageBoard,
-                                    ]}
+                                    // community={[
+                                    //     ...coinDetail.urls.announcement_url,
+                                    //     ...coinDetail.urls.subreddit_url,
+                                    //     // ...coinDetail.urls.messageBoard,
+                                    //     ...coinDetail.urls.announcement_url,
+                                    // ]}
                                 />
                             ) : (
                                 <DetailEachCoinSkeleton />
                             )}
                             <div className={cx('wallet-chart')}>
-                                <div style={{ textAlign: 'right', padding: '16px' }}>
+                                <div
+                                    className="d-flex justify-content-between"
+                                    style={{ textAlign: 'right', padding: '16px' }}
+                                >
                                     <Select
                                         defaultValue={FILTERS_CHART_DATA[0]}
                                         style={{ width: 120 }}
@@ -65,14 +86,21 @@ function TokenDetail() {
                                             <Select.Option key={time.toLowerCase()}>{time}</Select.Option>
                                         ))}
                                     </Select>
+                                    <div>
+                                        <Button outline onClick={handleResetZoom}>
+                                            Reset Zoom
+                                        </Button>
+                                    </div>
                                 </div>
                                 <div>
-                                    {coinDetail && coinDetail.prices ? (
+                                    {coinDetail && coinDetail.prices.day ? (
                                         <ChartCoinDetail
                                             time={filterChartByTime.toLowerCase()}
                                             symbol={coinDetail.symbol}
                                             data={coinDetail}
                                             typeFilter={filterChartByTime}
+                                            canvasRef={canvasRef}
+                                        // onResetZoom = {handleResetZoom}
                                         />
                                     ) : (
                                         <h2>Chart</h2>
@@ -81,7 +109,7 @@ function TokenDetail() {
                             </div>
                         </Col>
                         <Col xl={6} lg={6} md={0}>
-                            <TrendingTokens loading={statusFetchCoinDetail} data={trendingTokens} />
+                            <TrendingTokens data={trendingTokens} />
                         </Col>
                     </Row>
                 </div>

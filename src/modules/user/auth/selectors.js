@@ -5,3 +5,6 @@ export const statusSubmitCodeOTPSelector = (state) => state.auth.statusSubmitCod
 export const emailForgotPasswordSelector = (state) => state.auth.emailForgotPassword;
 export const resetPasswordStatusSelector = (state) => state.auth.statusRestPassword;
 export const statusLoadingSelector = (state) => state.auth.status;
+export const smartContractInfoSelector = (state) => state.auth.smartContractInfo;
+export const userIsPremiumSelector = (state) => state.auth.isPremiumUser;
+export const expiredTimeSelector = (state) => state.auth.expiredTime;

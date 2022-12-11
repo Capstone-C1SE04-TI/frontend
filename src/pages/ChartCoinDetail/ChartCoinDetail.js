@@ -1,53 +1,55 @@
+// import { log } from '@uniswap/smart-order-router';
 import React, { memo } from 'react';
 import { useMemo } from 'react';
 import { useRef } from 'react';
 import { Line } from 'react-chartjs-2';
+import { numberWithCommas } from '~/helpers';
 
-function ChartCoinDetail({ data, typeFilter = 'day', time, symbol }) {
-    const canvasRef = useRef()
+function ChartCoinDetail({ data, typeFilter = 'day', time, symbol, canvasRef }) {
     let delayed;
-    
+    console.log(data);
     const getLabelsCoinsDetailSorted = useMemo(() => {
-        return data.prices[typeFilter]
+        const dataCoinDetail = data.prices[typeFilter];
+
+        return Object.keys(dataCoinDetail)
+            .map((key) => [Number(key), dataCoinDetail[key]])
             .slice()
             .sort((prev, next) => Number(prev[0]) - Number(next[0]))
             .map((coin) => {
-                let date = new Date(Number(coin[0]));
+                let date = new Date(Number(coin[0]) * 1000);
                 let time =
                     date.getHours() > 12
-                        ? `${date.getHours() - 12}:${
-                              date.getMinutes().toString().length === 1 ? `0${date.getMinutes()} ` : date.getMinutes()
-                          } PM`
-                        : `${date.getHours()}:${
-                              date.getMinutes().toString().length === 1 ? `0${date.getMinutes()}` : date.getMinutes()
+                        ? `${date.getHours() - 12}:${date.getMinutes().toString().length === 1 ? `0${date.getMinutes()} ` : date.getMinutes()
+                        } PM`
+                        : `${date.getHours()}:${date.getMinutes().toString().length === 1 ? `0${date.getMinutes()}` : date.getMinutes()
                         } AM`;
                 if (typeFilter === 'month') {
-                    return date.toLocaleDateString().split('/',2).join('/') 
-                } else
-                    return typeFilter === 'day' ? time : date.toLocaleDateString();
+                    return date.toLocaleDateString().split('/', 2).join('/');
+                } else return typeFilter === 'day' ? time : date.toLocaleDateString();
             });
     }, [data.prices, typeFilter]);
 
     const getDataCoinsDetailSorted = useMemo(() => {
-        return data.prices[typeFilter]
+        const dataCoinDetail = data.prices[typeFilter];
+
+        return Object.keys(dataCoinDetail)
+            .map((key) => [Number(key), dataCoinDetail[key]])
             .slice()
             .sort((prev, next) => Number(prev[0]) - Number(next[0]))
             .map((coin) => {
                 return coin[1];
             });
     }, [data.prices, typeFilter]);
-
     return (
         <div>
             <Line
                 ref={canvasRef}
                 data={{
                     labels: getLabelsCoinsDetailSorted,
-
                     datasets: [
                         {
-                            label: `Price (${time}) in ${symbol} `,
                             data: getDataCoinsDetailSorted,
+                            labels: 'hello',
                             fill: true,
                             backgroundColor: function (context) {
                                 const chart = context.chart;
@@ -58,14 +60,15 @@ function ChartCoinDetail({ data, typeFilter = 'day', time, symbol }) {
                                     return;
                                 }
                                 var gradient = ctx.createLinearGradient(0, 0, 0, 400);
-                                gradient.addColorStop(0, 'rgba(58,123,231,1)');
-                                gradient.addColorStop(1, 'rgba(0,210,255,0.3)');
+                                gradient.addColorStop(0, 'rgb(130 238 247)');
+                                gradient.addColorStop(1, 'rgb(17, 46 ,61)');
                                 return gradient;
                             },
                             borderColor: '#fff',
-                            pointBackgroundColor: 'rgb(77 ,201 ,246)',
+                            pointBackgroundColor: '#275361',
                             showLine: false,
                             tension: 0.02,
+                            pointStyle: 'rectRot',
                         },
                     ],
                 }}
@@ -74,7 +77,7 @@ function ChartCoinDetail({ data, typeFilter = 'day', time, symbol }) {
                     hoverRadius: 13,
                     hitRadius: 30,
                     responsive: true,
-                    pointHoverBackgroundColor: 'rgb(77 ,201 ,246)',
+                    pointHoverBackgroundColor: '#275361',
                     animation: {
                         onComplete: () => {
                             delayed = true;
@@ -118,7 +121,35 @@ function ChartCoinDetail({ data, typeFilter = 'day', time, symbol }) {
                         },
                     },
                     plugins: {
+                        title: {
+                            display: true,
+                            text: 'Statistics Chart',
+                            fullSize: true,
+                        },
+                        legend: {
+                            display: false,
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function (context) {
+                                    return (
+                                        `Price (${time}) in ${symbol.toUpperCase()}: $ ` +
+                                        numberWithCommas(context.parsed.y.toFixed(3))
+                                    );
+                                },
+                            },
+                        },
                         zoom: {
+                            limits: {
+                                y: {
+                                    min: Math.min(...getDataCoinsDetailSorted),
+                                    max: Math.max(...getDataCoinsDetailSorted),
+                                    minRange:
+                                        (Math.max(...getDataCoinsDetailSorted) -
+                                            Math.min(...getDataCoinsDetailSorted)) /
+                                        20,
+                                },
+                            },
                             pan: {
                                 enabled: true,
                                 mode: 'xy',
@@ -134,21 +165,12 @@ function ChartCoinDetail({ data, typeFilter = 'day', time, symbol }) {
                                 mode: 'xy',
                             },
                         },
-                        // legend: {
-                        //     display: false,
-                        //     labels: {
-                        //         usePointStyle: true,
-                        //     },
-                        // },
-                        // title: {
-                        //     display: true,
-                        //     text: 'Trading chart',
-                        //     color: '#482ee8',
-                        //     fullSize: true,
-                        //     font: {
-                        //         size: 20,
-                        //     },
-                        // },
+                        crosshair: {
+                            line: {
+                                color: 'rgb(91 171 183)', // crosshair line color
+                                width: 1, // crosshair line width
+                            },
+                        },
                     },
                     hover: {
                         intersect: false,

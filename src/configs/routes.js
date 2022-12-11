@@ -11,8 +11,10 @@ const routes = {
     editProfile: '/edit-profile',
     changePassword: '/change-password',
     profile: '/profile',
-    buyToken: '/buy-token',
+    buyToken: '/upgrade',
     swapToken: '/swap-token',
-    transactionShark: '/transaction-shark'
+    transactionShark: '/transaction-shark',
+    gainLoss: '/gain-loss',
+    portfolioSharkFollow: '/portfolio-shark-follow',
 };
 export default routes;

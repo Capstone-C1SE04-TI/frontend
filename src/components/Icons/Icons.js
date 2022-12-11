@@ -9,6 +9,8 @@ export const LogoIcon = () => {
     );
 };
 
+
+
 export const TimesIcon = () => {
     return (
         <svg width={24} height={24} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -344,7 +346,7 @@ export const CaretDownIcon = ({ width = 20, height = 23, className }) => {
     );
 };
 
-export const CaretNextIcon = ({ width = 15, height = 15, className }) => {
+export const CaretNextIcon = ({ width = 15, height = 15, className, stroke = 'rgb(56, 97, 251)' }) => {
     return (
         <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -357,7 +359,7 @@ export const CaretNextIcon = ({ width = 15, height = 15, className }) => {
         >
             <path
                 d="M1.5 1L4.5 4L1.5 7"
-                stroke="rgb(56, 97, 251)"
+                stroke={stroke}
                 strokeWidth={2}
                 strokeMiterlimit={10}
                 strokeLinecap="round"
@@ -368,15 +370,26 @@ export const CaretNextIcon = ({ width = 15, height = 15, className }) => {
 };
 export const StarIcon = ({ width = 20, height = 23, className }) => {
     return (
-        <svg width={20} height={20} viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <svg width={27} height={27} viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path
+                stroke="#eee"
                 d="M20 7.62105L12.81 6.96842L10 0L7.19 6.97895L0 7.62105L5.46 12.6L3.82 20L10 16.0737L16.18 20L14.55 12.6L20 7.62105ZM10 14.1053L6.24 16.4947L7.24 11.9895L3.92 8.9579L8.3 8.5579L10 4.31579L11.71 8.56842L16.09 8.96842L12.77 12L13.77 16.5053L10 14.1053Z"
-                fill="white"
+                fill="#eee"
             />
         </svg>
     );
 };
-
+export const StarYellowIcon = ({ width = 20, height = 23, className }) => {
+    return (
+        <svg width={27} height={27} viewBox="0 0 20 20" fill="yellow" xmlns="http://www.w3.org/2000/svg">
+            <path
+                stroke="yellow"
+                d="M20 7.62105L12.81 6.96842L10 0L7.19 6.97895L0 7.62105L5.46 12.6L3.82 20L10 16.0737L16.18 20L14.55 12.6L20 7.62105ZM10 14.1053L6.24 16.4947L7.24 11.9895L3.92 8.9579L8.3 8.5579L10 4.31579L11.71 8.56842L16.09 8.96842L12.77 12L13.77 16.5053L10 14.1053Z"
+                fill="yellow"
+            />
+        </svg>
+    );
+};
 export const TelegramIcon = ({ width = 20, height = 23, className }) => {
     return (
         <svg color="#6B53F8" width={30} height={30} viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -462,8 +475,9 @@ export const ArrowRightIcon = ({ width = 22, height = 25, className }) => {
 export const ArrowLeftIcon = ({ width = 22, height = 25, className }) => {
     return (
         <svg
+            stroke="#000"
             xmlns="http://www.w3.org/2000/svg"
-            fill="none"
+            fill="#000"
             height="26px"
             width="26px"
             viewBox="0 0 24 24"
@@ -473,7 +487,7 @@ export const ArrowLeftIcon = ({ width = 22, height = 25, className }) => {
                 fillRule="evenodd"
                 clipRule="evenodd"
                 d="M11.0001 21.4C16.7439 21.4 21.4001 16.7438 21.4001 11C21.4001 5.25624 16.7439 0.600006 11.0001 0.600006C5.25634 0.600006 0.600098 5.25624 0.600098 11C0.600098 16.7438 5.25634 21.4 11.0001 21.4ZM15.8193 10.0808L11.9193 6.18077C11.4117 5.67309 10.5885 5.67309 10.0809 6.18077C9.57318 6.68845 9.57318 7.51156 10.0809 8.01924L11.7616 9.70001L7.1001 9.7C6.38213 9.7 5.8001 10.282 5.8001 11C5.8001 11.718 6.38213 12.3 7.1001 12.3H11.7616L10.0809 13.9808C9.57318 14.4884 9.57318 15.3116 10.0809 15.8192C10.5885 16.3269 11.4117 16.3269 11.9193 15.8192L15.8193 11.9192C16.327 11.4116 16.327 10.5884 15.8193 10.0808Z"
-                fill="#808A9D"
+                fill="#000"
             />
         </svg>
     );
@@ -508,5 +522,19 @@ export const DolarIcon = ({ width = 20, height = 23 }) => (
         xmlns="http://www.w3.org/2000/svg"
     >
         <path d="M4 10.781c.148 1.667 1.513 2.85 3.591 3.003V15h1.043v-1.216c2.27-.179 3.678-1.438 3.678-3.3 0-1.59-.947-2.51-2.956-3.028l-.722-.187V3.467c1.122.11 1.879.714 2.07 1.616h1.47c-.166-1.6-1.54-2.748-3.54-2.875V1H7.591v1.233c-1.939.23-3.27 1.472-3.27 3.156 0 1.454.966 2.483 2.661 2.917l.61.162v4.031c-1.149-.17-1.94-.8-2.131-1.718H4zm3.391-3.836c-1.043-.263-1.6-.825-1.6-1.616 0-.944.704-1.641 1.8-1.828v3.495l-.2-.05zm1.591 1.872c1.287.323 1.852.859 1.852 1.769 0 1.097-.826 1.828-2.2 1.939V8.73l.348.086z" />
+    </svg>
+);
+
+export const PortfolioIcon = ({ width = 20, height = 23 }) => (
+    <svg
+        stroke="currentColor"
+        fill="currentColor"
+        strokeWidth={0}
+        viewBox="0 0 16 16"
+        height={height}
+        width={width}
+        xmlns="http://www.w3.org/2000/svg"
+    >
+        <path d="M405.852,100.879h-3.358c-3.859-7.12-11.399-11.967-20.051-11.967h-61.567V78.594c0-13.245-10.775-24.021-24.02-24.021  h-155.96c-13.25,0-24.03,10.775-24.03,24.021v10.318H55.301c-8.652,0-16.192,4.847-20.051,11.967h-3.358  C14.307,100.879,0,115.186,0,132.771v218.507c0,17.586,14.307,31.893,31.892,31.893h373.96c17.585,0,31.892-14.307,31.892-31.893  V132.771C437.744,115.186,423.437,100.879,405.852,100.879z M130.865,78.594c0-5.525,4.5-10.021,10.03-10.021h155.96  c5.525,0,10.02,4.495,10.02,10.021v10.318h-176.01V78.594z M46.511,111.702c0-4.847,3.943-8.79,8.79-8.79h327.141  c4.847,0,8.79,3.943,8.79,8.79v166.245c0,23.104-18.797,41.901-41.901,41.901h-82.668l4.417-25.396H166.658l4.417,25.396H88.413  c-23.104,0-41.901-18.797-41.901-41.901V111.702z M254.435,308.453l-5.358,30.808h-60.415l-5.358-30.808H254.435z M423.744,351.278  c0,9.866-8.026,17.893-17.892,17.893H31.892c-9.865,0-17.892-8.026-17.892-17.893V132.771c0-9.865,8.026-17.892,17.892-17.892h0.62  v163.068c0,30.824,25.077,55.901,55.901,55.901h85.097l3.376,19.412h83.966l3.376-19.412h85.103  c30.824,0,55.901-25.077,55.901-55.901V114.879h0.62c9.865,0,17.892,8.026,17.892,17.892V351.278z" />
     </svg>
 );

@@ -1,13 +1,23 @@
+
 .container-banner {
     width: 100%;
-    background-color: #EBEBEB;
-    height: 100vh;
+    background: #fff;
+    // height: 100vh;
+    padding:20px 40px;
+}
+
+.heading {
+    text-align: center;
+    font-family: "Mona Sans","Mona Sans Header Fallback",-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
+    font-weight: 700;
+    font-size: 42px;
+      margin-bottom: 24px;
 }
 
 .popup-buy__content {
     padding: 10px 15px;
     margin: 0 10px;
-    background: rgba(68, 68, 68, 0.2666666667);
+    background: aliceblue;
     h5 {
         display: flex;
         justify-content: center;
@@ -23,41 +33,19 @@
 }
 
 .btn-swap {
-    width: 100%;
-    border-radius: 16px;
-    border: 1px solid #446084;
-    padding: 4px 0px;
-    background: #446084;
-    color: white;
-    &:hover {
-        cursor: pointer;
-    }
     button {
         width: 100%;
-        text-align: center;
-        border-radius: 16px;
-        border: 1px solid #446084;
-        padding: 4px 0px;
-        background: #446084;
-        color: white;
-        width: 100%;
-        &:hover {
-            cursor: pointer;
-            opacity: 0.5;
-        }
     }
 }
 
 .popup-buy {
-    position: absolute;
-    top: 22%;
-    left: 59%;
-    transform: translateX(-50%);
-    background: #fff;
-    width: 472px;
+    background-color: rgba(255, 255, 255);
+    box-shadow: rgb(0 0 0 /12%) 0 2px 12px;
+    min-width: 390px;
     padding-bottom: 20px;
     border-radius: 8px;
-    h1, h2 {
+    h1,
+    h2 {
         text-align: center;
     }
     h1 {
@@ -67,7 +55,7 @@
         padding: 4px 8px;
         margin: 20px 15px;
         border-radius: 22px;
-        background: #d4d9de;
+        background: aliceblue;
     }
 }
 

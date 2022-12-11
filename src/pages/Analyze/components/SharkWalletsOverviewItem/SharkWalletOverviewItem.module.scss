@@ -1,3 +1,94 @@
+.react-bootstrap-table {
+    position: relative;
+}
 .shark-active {
-    background-color: #482ee8;;
+    background-color: #a7c1ee;
+    color: #482ee8;
+
+    tr {
+        td {
+            font-size: 14px;
+
+            &:first-child {
+                color: #fff;
+            }
+        }
+    }
+}
+
+.new-shark {
+    position: absolute;
+    width: 100px;
+    left: 0px;
+    background: #ee3959;
+    color: #fff;
+    border-top-right-radius: 4px;
+    border-bottom-right-radius: 4px;
+}
+
+.new-shark::after {
+    content: '';
+    position: absolute;
+    border-top: 9px solid #8f8e8e;
+    border-left: 9px solid transparent;
+    left: 0px;
+    top: 21px;
+}
+
+.shark-default-td {
+    color: #0036ff;
+}
+
+#spinning-circle {
+    margin-top: 40px;
+    margin-left: 40px;
+    animation: spinning-circle linear 10s infinite;
+    width: 40px;
+    height: 40px;
+    overflow: visible;
+}
+
+#inner-circle {
+    animation: heartbeat 1s infinite;
+}
+
+#inner-circle img {
+    width: 100%;
+    height: auto;
+}
+
+.increase {
+    color: #21ce66;
+}
+
+.reduce {
+    color: red;
+}
+
+@keyframes heartbeat {
+    0% {
+        transform: scale(1);
+    }
+
+    25% {
+        transform: scale(2);
+    }
+
+    50% {
+        transform: scale(1);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
+
+@keyframes spinning-circle {
+    0% {
+        transform: rotate(0turn);
+    }
+
+    100% {
+        transform: rotate(-1turn);
+    }
 }

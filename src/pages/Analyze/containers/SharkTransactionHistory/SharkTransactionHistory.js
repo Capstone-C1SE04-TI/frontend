@@ -2,7 +2,8 @@ import styles from './SharkTransactionHistory.module.scss';
 import classNames from 'classnames/bind';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
-import {  fetchTransactionHistorySharkWallet } from '~/modules/SharkWallet/sharkWalletSlice';
+import { fetchTransactionHistorySharkWallet } from '~/modules/SharkWallet/sharkWalletSlice';
+import { fetchSharkWallet } from '~/modules/SharkWallet/sharkWalletSlice';
 import {
     sharkCryptoStatusSelector,
     sharkTransactionHistorySelector,
@@ -11,7 +12,7 @@ import {
 } from '~/modules/SharkWallet/selector';
 import { Spin } from 'antd';
 import SharkWalletTransactionItem from './../../components/SharkWalletTransactionItem';
-import NoData  from '~/components/NoData';
+import NoData from '~/components/NoData';
 const cx = classNames.bind(styles);
 
 function SharkTransactionHistory({ currentTabSharkWallet }) {
@@ -24,9 +25,13 @@ function SharkTransactionHistory({ currentTabSharkWallet }) {
 
 
     useEffect(() => {
-        dispatch(fetchTransactionHistorySharkWallet(sharkIdSelected));
+        if (sharkIdSelected) {
+            dispatch(fetchTransactionHistorySharkWallet(sharkIdSelected))
+        };
+
     }, [dispatch, sharkIdSelected]);
 
+  
     return (
         currentTabSharkWallet === 'transaction-history' && (
             <Spin spinning={sharkCryptoStatus === 'loading' ? true : false}>
@@ -36,14 +41,14 @@ function SharkTransactionHistory({ currentTabSharkWallet }) {
                             <th>Time</th>
                             <th>Transaction</th>
                             <th>Past Value</th>
-                            <th>Past Present</th>
+                            <th>Present Value</th>
                         </tr>
                     </thead>
                     <tbody>
                         {/* {sharkTransactionHistory.length === 0 && <div className="text-center">No data</div>} */}
                         {sharkTransactionHistory
                             .slice()
-                            .filter((transaction) => transaction.presentPrice)
+                            // .filter((transaction) => transaction.presentPrice)
                             .sort((prev, next) => {
                                 return next?.presentPrice - prev?.presentPrice;
                             })

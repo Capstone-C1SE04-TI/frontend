@@ -1,3 +1,9 @@
+.shark-container {
+    box-shadow: rgb(128 138 157 / 12%) 0px 1px 2px, rgb(128 138 157 / 24%) 0px 8px 32px;
+    height: 811px;
+    overflow: scroll;
+}
+
 .shark-wallet {
     padding-bottom: 17px;
 
@@ -22,19 +28,38 @@
 }
 
 .shark-overview {
-    background-color: #a697ff;
+    background-color: #fff;
     padding: 5px 0px;
     border-radius: 12px;
-    height: 100vh;
+    // height: 100vh;
+    border-radius: 8px;
+    background: #fff;
+    box-shadow: rgb(128 138 157 / 12%) 0px 1px 2px, rgb(128 138 157 / 24%) 0px 8px 32px;
 }
 
 .shark-search {
     display: flex;
-    // justify-content: space-around;
+    justify-content: space-between;
     align-items: center;
     padding: 12px 0;
     font-size: 14px;
     margin-left: 12px;
+
+    form {
+        border: 3px solid #eee;
+        border-radius: 8px;
+        transition: border-color 0.5s;
+
+        &:hover {
+            background-color: #fff;
+            border: 3px solid #3861fb;
+        }
+
+        &:focus-within {
+            background-color: #fff;
+            border: 3px solid #3861fb;
+        }
+    }
 
     input {
         padding: 5px 8px;
@@ -59,13 +84,13 @@
 }
 
 .table-shark {
-    background-color: #a697ff;
-    color: #fff;
+    background-color: #fff;
+    color: #333;
 
     thead {
         th {
             padding: 11px 0 10px 0;
-            background-color: #a697ff;
+            background-color: #fff;
             text-align: center !important;
             color: #473d85;
             text-transform: uppercase;
@@ -75,13 +100,22 @@
     tbody {
         tr {
             td {
-                padding: 10px 0 10px 0px !important;
+                padding: 10px 0 10px 0px;
                 text-align: center;
+                font-size: 14px;
+                &:nth-child(2) {
+                    display: flex;
+                    justify-content: center;
+                    padding: 0;
+                    padding: 20px 0 20px 0px !important;
+                }
             }
 
             &:hover {
-                opacity: 0.5;
-                background: cornflowerblue;
+                // opacity: 0.5;
+                // background: cornflowerblue;
+                // cursor: pointer;
+                background: #a7c1ee;
                 cursor: pointer;
             }
         }
@@ -98,10 +132,12 @@
     align-items: center;
     width: 30%;
     text-transform: uppercase;
+
     h4 {
         margin-right: 10px;
         font-weight: 500;
     }
+
     input {
         width: 100%;
     }
@@ -120,7 +156,7 @@
         font-weight: 500;
         font-size: 14px;
         color: rgb(0, 0, 0);
-        padding: 8px;
+        padding: 6px 0px;
         background-color: var(--color-primary-white);
         border: 2px solid rgb(255, 255, 255);
         border-radius: 8px;
@@ -129,6 +165,7 @@
         &:hover {
             background-color: var(--color-primary-white);
         }
+
         &:focus-within {
             background-color: var(--color-primary-white);
         }
@@ -141,4 +178,71 @@
         left: 5%;
         top: 32%;
     }
+}
+
+#market-table__pagination {
+    background: #fff;
+    padding: 10px 0 10px 0;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    // background: linear-gradient(90deg, rgba(2, 0, 36, 1) 0%, rgba(6, 29, 33, 0.8995973389355743) 100%);
+
+    ul {
+        display: flex;
+        align-items: center;
+        margin-bottom: 0;
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+
+    ul > li {
+        border: none;
+        border-radius: 50%;
+        color: #838383;
+        cursor: pointer;
+        display: inline-block;
+        font-size: 1.2rem;
+        height: 32px;
+        margin: 0 5px;
+        outline: none;
+        outline-style: initial;
+        padding: 0.5rem;
+        text-align: center;
+        width: 32px;
+
+        a {
+            padding: 8px;
+            color: #000;
+        }
+    }
+}
+
+.tab-shark {
+    cursor: pointer;
+    margin-bottom: 0;
+    margin-right: 24px;
+    font-size: 18px;
+    color: rgb(88, 102, 126);
+    font-weight: 600;
+}
+
+.tab-shark.active-shark {
+    color: #482ee8;
+}
+
+
+.badge {
+   position: absolute;
+     top: 2%;
+    right: 62%;
+    padding: 0px 6px;
+    height: 2rem;
+    line-height: 2rem;
+    border-radius: 10px;
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: #fff;
+    background-color: #ee3959;
 }

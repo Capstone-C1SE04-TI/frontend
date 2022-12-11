@@ -1,25 +1,39 @@
 .tr-crypto__item {
     text-align: center;
-    border-bottom: 1px solid #fff;
+    border-bottom: 1px solid #eee;
     td {
         padding: 8px 0 8px 0;
+        font-size: 14px;
         text-align: center;
-        border-right: 1px solid #fff;
+        border-bottom: 1px solid #eee;
+        border-right: 1px solid #eee;
 
     }
 
     &:hover {
-        opacity: 0.5;
-        background: cornflowerblue;
-        cursor: pointer;
+        // opacity: 0.5;
+        // background: cornflowerblue;
+        // cursor: pointer;
+            background: #a7c1ee;
+    cursor: pointer;
     }
+
+
+    .btn-show-more {
+		&--active {
+			transform: rotate(90deg);
+			transition: transform 0.2s ease-in-out;
+		}
+        transform: rotate(0deg);
+		transition: transform 0.2s ease-in-out;
+	}
 
 }
 
 .crypto-item {
     text-align: start;
     margin: 0px 0px 0px 5px;
-    border-right: 1px solid #fff;
+    border-right: 1px solid #eee;
     padding: 5px;
 
     .cryto-item__info {
@@ -51,4 +65,5 @@
 .crypto-item__Text {
     display: flex;
     justify-content: flex-start;
+    font-weight: 500;
 }

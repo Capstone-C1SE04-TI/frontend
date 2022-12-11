@@ -4,15 +4,21 @@ import SharkWalletCryptoItem from '../../components/SharkWalletCryptoItem';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useMemo } from 'react';
 import { fetchCryptoSharkWallet } from '~/modules/SharkWallet/sharkWalletSlice';
-import { sharkCryptoSelector, sharkCryptoStatusSelector, sharkWalletIdSelector, sharkRemainingSelector } from '~/modules/SharkWallet/selector';
+import {
+    sharkCryptoSelector,
+    sharkCryptoStatusSelector,
+    sharkWalletIdSelector,
+    sharkRemainingSelector,
+    cryptoRemainingSelector,
+} from '~/modules/SharkWallet/selector';
 import { Spin } from 'antd';
-import NoData  from '~/components/NoData';
+import NoData from '~/components/NoData';
 const cx = classNames.bind(styles);
 
 function SharkWalletCrypto({ currentTabSharkWallet }) {
     const dispatch = useDispatch();
 
-    const cryptosSharkWallet = useSelector(sharkCryptoSelector);
+    const cryptosSharkWallet = useSelector(cryptoRemainingSelector);
     const sharkCryptoStatus = useSelector(sharkCryptoStatusSelector);
     const sharkIdSelected = useSelector(sharkWalletIdSelector);
     const sharksCoin = useSelector(sharkRemainingSelector);
@@ -25,8 +31,8 @@ function SharkWalletCrypto({ currentTabSharkWallet }) {
     }, [cryptosSharkWallet]);
 
     useEffect(() => {
-        dispatch(fetchCryptoSharkWallet(sharkIdSelected));
-    }, [dispatch, sharkIdSelected, sharksCoin]);
+        if (sharkIdSelected) dispatch(fetchCryptoSharkWallet(sharkIdSelected));
+    }, [dispatch, sharkIdSelected]);
 
 
     return (
@@ -42,7 +48,8 @@ function SharkWalletCrypto({ currentTabSharkWallet }) {
                         </tr>
                     </thead>
                     <tbody>
-                        {sharksCoin.length> 0 &&cryptosSharkWallet.length > 0 &&
+                        {sharksCoin.length > 0 &&
+                            cryptosSharkWallet.length > 0 &&
                             cryptosSharkWallet
                                 .slice()
                                 .filter((crypto) => crypto.total)
@@ -61,7 +68,9 @@ function SharkWalletCrypto({ currentTabSharkWallet }) {
                                 })}
                     </tbody>
                 </table>
-                {sharkCryptoStatus !== 'loading' && sharksCoin.length === 0 && <NoData />}
+                {sharkCryptoStatus !== 'loading' && (sharksCoin.length === 0 || cryptosSharkWallet.length === 0) && (
+                    <NoData />
+                )}
             </Spin>
         )
     );

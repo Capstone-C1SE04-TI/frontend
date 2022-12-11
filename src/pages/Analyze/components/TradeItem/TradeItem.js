@@ -1,24 +1,86 @@
-
 import classNames from 'classnames/bind';
-import styles from './TradeItem.module.scss'
+import styles from './TradeItem.module.scss';
 
 import { Line } from 'react-chartjs-2';
-import { data, deposit, labels, withdraw } from '~/data/dataChart';
+import { memo } from 'react';
+import { useMemo } from 'react';
+import { useState } from 'react';
 
 const cx = classNames.bind(styles);
 
-function TradeItem({ refChild }) {
+function TradeItem({ refChild, coinInfoData, historyData }) {
+    const [typeFilter, setTypeFilter] = useState('month');
+
+    const getLabelsCoinsDetailSorted = useMemo(() => {
+        const dataCoinDetail = coinInfoData.prices[typeFilter];
+
+        return Object.keys(dataCoinDetail)
+            .map((key) => [Number(key), dataCoinDetail[key]])
+            .slice()
+            .sort((prev, next) => Number(prev[0]) - Number(next[0]))
+            .map((coin) => {
+                let date = new Date(Number(coin[0]) * 1000);
+                let time =
+                    date.getHours() > 12
+                        ? `${date.getHours() - 12}:${
+                              date.getMinutes().toString().length === 1 ? `0${date.getMinutes()} ` : date.getMinutes()
+                          } PM`
+                        : `${date.getHours()}:${
+                              date.getMinutes().toString().length === 1 ? `0${date.getMinutes()}` : date.getMinutes()
+                          } AM`;
+                if (typeFilter === 'month') {
+                    return date.toLocaleDateString().split('/', 3).join('/');
+                } else return typeFilter === 'day' ? time : date.toLocaleDateString();
+            });
+    }, [typeFilter]);
+
+    const getDataCoinsDetailSorted = useMemo(() => {
+        const dataCoinDetail = coinInfoData.prices[typeFilter];
+
+        return Object.keys(dataCoinDetail)
+            .map((key) => [Number(key), dataCoinDetail[key]])
+            .slice()
+            .sort((prev, next) => Number(prev[0]) - Number(next[0]))
+            .map((coin) => {
+                return coin[1];
+            });
+    }, [typeFilter]);
+
+
+    const datasetsDeposit = useMemo(() => {
+        return historyData
+            .filter((data) => data.status === 'deposit')
+            .sort((prev, next) => +prev.timeStamp - +next.timeStamp)
+            .map((data) => {
+                let date = new Date(+data.timeStamp);
+                return { x: date, y: data.value / 10000 };
+            });
+    }, []); 
+
+    const datasetsWithDraw = useMemo(() => {
+        return historyData
+            .filter((data) => data.status === 'withdraw')
+            .sort((prev, next) => +prev.timeStamp - +next.timeStamp)
+            .map((data) => {
+                let date = new Date(+data.timeStamp);
+                return { x: date, y: data.value / 10000000 };
+            });
+    }, []);
+console.log(datasetsWithDraw);
+console.log(datasetsDeposit);
     return (
         <tr style={{ backgroundColor: '#FFFFFF' }} ref={refChild}>
             <td colSpan="4" style={{ padding: '0' }}>
                 <div className={cx('trade-item-child')}>
                     <Line
                         data={{
-                            labels: labels,
+                            //x
+                            labels: getLabelsCoinsDetailSorted,
                             datasets: [
                                 {
-                                    label: `Price $ `,
-                                    data: data,
+                                    label: `Price% `,
+                                    //y
+                                    data: getDataCoinsDetailSorted,
                                     tension: 0.1,
                                     type: 'line',
                                     borderColor: '#cdf8f8',
@@ -45,8 +107,8 @@ function TradeItem({ refChild }) {
                                     order: 1,
                                 },
                                 {
-                                    label: 'Deposit $',
-                                    data: deposit,
+                                    label: 'deposit',
+                                    data: datasetsDeposit,
                                     fill: false,
                                     showLine: false,
                                     tension: 0.1,
@@ -55,10 +117,12 @@ function TradeItem({ refChild }) {
                                     hoverRadius: 12,
                                     backgroundColor: 'rgb(77 ,201 ,246)',
                                     order: 0,
+                                    // xAxisID: 'xAxis1',
+                                    // yAxisID: 'yAxis1',
                                 },
                                 {
                                     label: 'Withdraw $',
-                                    data: withdraw,
+                                    data: datasetsWithDraw,
                                     fill: false,
                                     showLine: false,
                                     tension: 0.1,
@@ -71,6 +135,29 @@ function TradeItem({ refChild }) {
                             ],
                         }}
                         options={{
+                            // scales: {
+                            //     yAxis1: {
+                            //         // type: 'category',
+                            //         // grid: {
+                            //         //     drawOnChartArea: false, // only want the grid lines for one axis to show up
+                            //         // },
+                            //         ticks: {
+                            //             callback: function (value, index, ticks) {
+                            //                 // let realLabel = this.getLabelForValue(label);
+
+                            //                 // var month = realLabel.split(';')[0];
+                            //                 // var year = realLabel.split(';')[1];
+                            //                 // if (month === 'February') {
+                            //                 //     return year;
+                            //                 // } else {
+                            //                 //     return '';
+                            //                 // }
+                            //                 return '$asdas' + value;
+                            //             },
+                            //         },
+                            //     },
+                            // },
+
                             transitions: {
                                 zoom: {
                                     animation: {
@@ -81,6 +168,22 @@ function TradeItem({ refChild }) {
                             },
 
                             tooltips: {
+                                callbacks: {
+                                    label: function (context) {
+                                        let label = context.dataset.label || '';
+
+                                        if (label) {
+                                            label += ': ';
+                                        }
+                                        if (context.parsed.y !== null) {
+                                            label += new Intl.NumberFormat('en-US', {
+                                                style: 'currency',
+                                                currency: 'USD',
+                                            }).format(context.parsed.y);
+                                        }
+                                        return 'setlable' + label;
+                                    },
+                                },
                                 cornerRadius: 12, //<- set this
                             },
                             legend: {
@@ -92,29 +195,34 @@ function TradeItem({ refChild }) {
                             },
 
                             plugins: {
-                                zoom: {
-                                    limits: {
-                                        y: { min: 0, max: 70000, minRange: 10000 },
-                                    },
-                                    pan: {
-                                        enabled: true,
-                                        mode: 'xy',
-                                        threshold: 5,
-                                    },
-                                    zoom: {
-                                        wheel: {
-                                            enabled: true,
-                                        },
-                                        pinch: {
-                                            enabled: true,
-                                        },
-                                        mode: 'xy',
+                                datalabels: {
+                                    formatter: function (value) {
+                                        return 'hello gyu';
                                     },
                                 },
-                                tooltip: {
-                                    mode: 'interpolate',
-                                    intersect: false,
-                                },
+                                // zoom: {
+                                //     limits: {
+                                //         y: { min: 0, max: 70000, minRange: 10000 },
+                                //     },
+                                //     pan: {
+                                //         enabled: true,
+                                //         mode: 'xy',
+                                //         threshold: 5,
+                                //     },
+                                //     zoom: {
+                                //         wheel: {
+                                //             enabled: true,
+                                //         },
+                                //         pinch: {
+                                //             enabled: true,
+                                //         },
+                                //         mode: 'xy',
+                                //     },
+                                // },
+                                // tooltip: {
+                                //     mode: 'interpolate',
+                                //     intersect: false,
+                                // },
                                 crosshair: {
                                     line: {
                                         color: 'rgb(91 171 183)', // crosshair line color
@@ -130,4 +238,4 @@ function TradeItem({ refChild }) {
     );
 }
 
-export default TradeItem;
+export default memo(TradeItem);

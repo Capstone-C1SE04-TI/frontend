@@ -54,8 +54,8 @@ table {
             border-top: 1px solid #eff2f5;
 
             &:hover {
-                background-color: #f8fafd;
-                cursor: pointer;
+                background-color: unset;
+                cursor: default;
             }
         }
 
@@ -63,7 +63,13 @@ table {
         border-bottom: 1px solid #fff;
 
         th {
-            padding: 10px 10px 10px 0;
+            padding: 10px 10px 10px 10px;
+            text-align: center;
+
+            &:nth-child(2) {
+                text-align: start;
+            }
+
         }
     }
 }
@@ -75,17 +81,35 @@ tr {
     }
 }
 
+.listCoin {
+    td {
+        &:nth-child(2) {
+            padding: 30px 0 20px 0px !important;
+            display: flex;
+        }
+    }
+}
+
 td {
-    text-align: start;
-    padding: 0px 0 0px 20px;
+    &:nth-child(1) {
+        text-align: center;
+        padding: 10px;
+    }
+
+
+
+    text-align: center;
+    font-weight: 500;
+    padding: 0;
+
 }
 
 .pricedata {
-    padding: 0px 20px 0 0 !important;
+    padding: 0px 20px 0 0;
 
     img {
         margin-right: 5px;
-        margin-left: 0 !important;
+        margin-left: 0;
     }
 }
 
@@ -103,6 +127,22 @@ td {
         display: flex;
         justify-content: flex-start;
         align-items: center;
+    }
+}
+
+.priceData-content {
+    display: flex;
+    justify-content: center;
+
+    h6 {
+        font-size: 14px;
+    }
+
+    span {
+        text-transform: uppercase;
+        font-size: 14px;
+        color: rgb(128, 138, 157);
+        margin-left: 5px;
     }
 }
 
@@ -138,7 +178,6 @@ td {
         a {
             padding: 6px 12px;
             border-radius: 4px;
-            color: #4200ff;
         }
     }
 }
@@ -287,16 +326,16 @@ input:not(:placeholder-shown)~.search--icon {
     display: flex;
     justify-content: space-around;
     align-items: center;
-    border-radius: 28px;
+    border-radius: 6px;
     background: #eff2f5;
-    max-height: 34px;
+    max-height: 40px;
 
     &--filter {
         display: flex;
         justify-content: center;
         align-items: center;
         cursor: pointer;
-        padding: 8px 24px;
+          padding: 8px 12px;
 
         &--container {
             display: flex;
@@ -308,6 +347,11 @@ input:not(:placeholder-shown)~.search--icon {
                 font-size: 12px;
                 margin-right: 10px;
                 margin-bottom: 0px;
+                color: #333;
+            }
+            svg {
+                color: #333;
+
             }
         }
     }
@@ -327,6 +371,17 @@ input:not(:placeholder-shown)~.search--icon {
         z-index: 100;
     }
 }
+.spread {
+       height: 26px;
+    width: 1px;
+    margin: 0px 16px;
+    background: rgb(207, 214, 228);
+}
+
+.list-tab-item-filter {
+
+}
+
 
 @keyframes fadeIn {
     from {

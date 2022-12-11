@@ -9,7 +9,10 @@ const authSlice = createSlice({
         statusFindCodeOTP: {},
         statusSubmitCodeOTP: {},
         statusRestPassword: {},
+        smartContractInfo: { walletAddress: '', balance: '', ratio: '', premiumPrices: ['', '', ''] },
         emailForgotPassword: '',
+        isPremiumUser: '',
+        expiredTime: ''
     },
 
     reducers: {
@@ -20,6 +23,22 @@ const authSlice = createSlice({
         authEmailForgotPassword: (state, action) => {
             state.emailForgotPassword = action.payload;
         },
+        saveSmartContractInfo: (state, action) => {
+            const { walletAddress, balance, ratio, premiumPrices } = action.payload;
+            state.smartContractInfo.walletAddress = walletAddress;
+            state.smartContractInfo.balance = balance;
+            state.smartContractInfo.ratio = ratio;
+            state.smartContractInfo.premiumPrices = premiumPrices;
+        },
+        saveUserPremium: (state, action) => {
+            state.isPremiumUser = action.payload;
+        },
+        saveExpiredTime: (state, action) => {
+            state.expiredTime = action.payload;
+        },
+        // saveContractPremium: (state, action) => {
+        //     state.contractPremium = action.payload;
+        // },
     },
 
     extraReducers: (builder) => {
@@ -65,11 +84,7 @@ const authSlice = createSlice({
                 state.status = 'idle';
                 if (action.payload === 'successfully') {
                     state.statusRestPassword.successfully = action.payload;
-                }
-                else
-                    state.statusRestPassword.failed = action.payload
-
-
+                } else state.statusRestPassword.failed = action.payload;
             });
     },
 });
@@ -97,3 +112,5 @@ export const fetchCreateNewPassword = createAsyncThunk('auth/fetchCreateNewPassw
     return response.message;
 });
 export default authSlice;
+
+export const { saveExpiredTime,saveUserPremium, saveContractPremium, saveSmartContractInfo } = authSlice.actions;
