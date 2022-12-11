@@ -10,6 +10,7 @@ import images from '~/assets/images';
 import ConnectButton from './ConnectButton';
 import Button from '~/components/Button';
 import axios from 'axios';
+import { toast } from 'react-toastify';
 
 const cx = classNames.bind(styles);
 
@@ -60,6 +61,7 @@ function SwapToken() {
     //side Effect handle get address
     useEffect(() => {
         if (signer) getWalletAddress();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     },[signer])
 
 
@@ -72,8 +74,8 @@ function SwapToken() {
             //have ratio to convert eth to TI
             loadRatio();
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [signerAddress]);
-
 
     const handleChange = (e) => {
         setEthValues(e.target.value);
@@ -82,7 +84,7 @@ function SwapToken() {
 
     const handleSwap = async () => {
         let ABI = ['function buy(uint amount)'];
-        let ABITEST = ['function updatePrice(uint _newPrice)'];
+        // let ABITEST = ['function updatePrice(uint _newPrice)'];
     
         let iface = new ethers.utils.Interface(ABI);
         // let ifacetest = new ethers.utils.Interface(ABITEST);
@@ -101,16 +103,21 @@ function SwapToken() {
         ];
 
         await window.ethereum.request({ method: 'eth_sendTransaction', params }).then((txhash) => {
-            console.log({ txhash });
+            toast.loading('Processing Swap...');
+
             checkTransactionConfirm(txhash).then((result) => {
-                console.log({ resultTransaction: result });
+               if (result) {
+                   setBalance((pre) => pre + ethChange);
+                   toast.dismiss();
+                   toast.success('Swap successfully');
+               }
                 const handleRequestStatus = async () => {
                     const statusSwapToken = await axios.get(
                         `https://api-goerli.etherscan.io/api?module=transaction&action=getstatus&txhash=${txhash}&apikey=P4UEFZVG1N5ZYMPDKVQI7FFU7AZN742U3E`,
                     );
                     console.log({ statusSwapToken: statusSwapToken.data });
                 };
-                setTimeout(handleRequestStatus, 15000);
+                setTimeout(handleRequestStatus, 10000);
             });
         });
     };
@@ -191,7 +198,6 @@ function SwapToken() {
                         <div className={cx('swap-footer')} onClick={handleSwap}>
                             <Button linearGradientPrimary>Swap now</Button>
                         </div>
-                      
                     </div>
                 </div>
             </div>
