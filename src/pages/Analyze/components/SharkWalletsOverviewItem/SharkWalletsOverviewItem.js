@@ -53,7 +53,7 @@ function SharkWalletsOverviewItem({ data, userInfo }) {
 
     // The scroll listener
     const handleScroll = useCallback(() => {
-        console.log('scrolling');
+     
     }, []);
 
     // Attach the scroll listener to the div
@@ -61,7 +61,7 @@ function SharkWalletsOverviewItem({ data, userInfo }) {
         const div = parentRef.current;
         div.addEventListener('scroll', handleScroll);
     }, [handleScroll]);
-    console.log(data)
+
     return (
         <tr
             className={cx('react-bootstrap-table', { 'shark-active': data.sharkId === sharkInfoCurrent.sharkId })}

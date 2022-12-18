@@ -10,7 +10,7 @@ const MARKET_SHOW = 4;
 const cx = classNames.bind(styles);
 
 function TrendingCoins({ data, loading }) {
-    console.log(data)
+    // console.log(data)
 
     const settingsSlider = {
         dots: false,

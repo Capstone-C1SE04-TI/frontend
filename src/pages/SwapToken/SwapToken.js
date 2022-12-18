@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import classNames from 'classnames/bind';
-import { TI_ABI, TI_SMART_CONTRACT_ADDRESS, DEX_ABI, DEX_SMART_CONTRACT_ADDRESS } from '../../abi';
+import { DEX_SMART_CONTRACT_ADDRESS, API_CHECK_TRANSACTION } from '../../abi';
 import { useSelector, useDispatch } from 'react-redux';
 import { smartContractInfoSelector } from '~/modules/user/auth/selectors';
 import { ethers } from 'ethers';
@@ -68,10 +68,8 @@ function SwapToken() {
                     toast.success('Swap successfully',{ icon: '👻' });
                 }
                 const handleRequestStatus = async () => {
-                    const statusSwapToken = await axios.get(
-                        `https://api-goerli.etherscan.io/api?module=transaction&action=getstatus&txhash=${txhash}&apikey=P4UEFZVG1N5ZYMPDKVQI7FFU7AZN742U3E`,
-                    );
-                    console.log({ statusSwapToken: statusSwapToken.data });
+                     await axios.get(API_CHECK_TRANSACTION(txhash));
+                    // console.log({ statusSwapToken: statusSwapToken.data });
                 };
                 setTimeout(handleRequestStatus, 10000);
             });

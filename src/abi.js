@@ -424,6 +424,10 @@ const FUND_SUBSCRIPTION_ABI = [
 
 const FUND_SUBSCRIPTION_ADDRESS = '0x563aef0377c65075fa33ec14640f1d24c8839eaa';
 
+const API_CHECK_TRANSACTION = (txhash) => {
+    return `https://api-goerli.etherscan.io/api?module=transaction&action=getstatus&txhash=${txhash}&apikey=P4UEFZVG1N5ZYMPDKVQI7FFU7AZN742U3E`
+};
+    
 export {
     TI_SMART_CONTRACT_ADDRESS,
     TI_ABI,
@@ -431,4 +435,6 @@ export {
     DEX_ABI,
     FUND_SUBSCRIPTION_ABI,
     FUND_SUBSCRIPTION_ADDRESS,
+    API_CHECK_TRANSACTION,
 }; 
+

@@ -1,8 +1,7 @@
 import React, { useCallback } from 'react';
 import classNames from 'classnames/bind';
 import styles from './TransactionSharkItem.module.scss'
-import { convertStringToTimeCurrent, numberWithCommas, convertDate, convertTime } from '~/helpers';
-import { convertStringToTimeCurrent, numberWithCommas, convertDate, convertTime } from '~/helpers';
+import { numberWithCommas} from '~/helpers';
 
 const cx = classNames.bind(styles);
 
@@ -23,13 +22,12 @@ function TransactionSharkItem({ data, index, sharkAddress }) {
             return false;
         }
     }
-    console.log(data);
-    console.log(sharkAddress)
+
     return (
         <tr className={cx('transaction-shark__tr')} >
-            <td>{convertDate(data.timeStamp * 1000)}
+            {/* <td>{convertDate(data.timeStamp * 1000)}
                 <p>{convertTime(data.timeStamp * 1000)}</p>
-            </td>
+            </td> */}
             <td>shark #{data.sharkId}</td>
             <td>
                 <a href={`https://etherscan.io/tx/${data.hash}`} rel="noopener noreferrer" target="_blank">

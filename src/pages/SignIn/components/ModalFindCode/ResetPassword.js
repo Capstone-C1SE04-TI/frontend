@@ -23,7 +23,7 @@ function ResetPassword() {
     const resetPasswordStatus = useSelector(resetPasswordStatusSelector);
 
 
-    console.log({ resetPasswordStatus })
+    // console.log({ resetPasswordStatus })
     const emailForgot = JSON.parse(localStorage.getItem('emailForgot'));
 
     const dispatch = useDispatch();
@@ -43,7 +43,7 @@ function ResetPassword() {
 
     const handleResetPassword = (e) => {
         e.preventDefault();
-        console.log({ password, confirmPassword });
+        // console.log({ password, confirmPassword });
         const body = {
             email: emailForgot,
             password,

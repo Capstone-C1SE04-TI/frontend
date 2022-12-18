@@ -55,7 +55,7 @@ function LayoutDefault({ children }) {
     const [signer, setSigner] = useState('');
     const [signerAddress, setSignerAddress] = useState('');
     const [isConnecting, setIsConnecting] = useState(false);
-    const [expriedTime, setExpriedTime] = useState('')
+    const [expriedTime, setExpriedTime] = useState('');
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
@@ -65,10 +65,14 @@ function LayoutDefault({ children }) {
     const smartContractInfo = useSelector(smartContractInfoSelector);
 
     useEffect(() => {
-        console.log('provider');
         const onLoad = async () => {
-            const provider = await new ethers.providers.Web3Provider(window.ethereum);
-            await setProvider(provider);
+            try {
+                console.log('provider');
+                const provider = await new ethers.providers.Web3Provider(window.ethereum);
+                await setProvider(provider);
+            } catch (err) {
+                console.log('err', err);
+            }
         };
         onLoad();
     }, []);
@@ -93,10 +97,10 @@ function LayoutDefault({ children }) {
                 provider,
             );
             // console.log(contractPremium)
-            const limmitedAccount = await contractPremium.getExpriedTime(smartContractInfo.walletAddress)
-            const convertlimmitedAccount = await limmitedAccount.toHexString(16)
+            const limmitedAccount = await contractPremium.getExpriedTime(smartContractInfo.walletAddress);
+            const convertlimmitedAccount = await limmitedAccount.toHexString(16);
             const limmitedAccountTime = convertUnixTime(convertlimmitedAccount);
-            setExpriedTime(limmitedAccountTime)
+            setExpriedTime(limmitedAccountTime);
             const isPremiumUser = await contractPremium.isPremiumUser(smartContractInfo.walletAddress);
             dispatch(saveUserPremium(isPremiumUser));
             dispatch(saveExpiredTime(limmitedAccountTime));
@@ -161,7 +165,11 @@ function LayoutDefault({ children }) {
         const premium1Month = await contractPremium.premiumLevel(1);
         const premium6Month = await contractPremium.premiumLevel(2);
         const premium1Year = await contractPremium.premiumLevel(3);
-        return [{ price: premium1Month[1], time: 1 }, { price: premium6Month[1], time: 6 }, { price: premium1Year[1], time: 12 }];
+        return [
+            { price: premium1Month[1], time: 1 },
+            { price: premium6Month[1], time: 6 },
+            { price: premium1Year[1], time: 12 },
+        ];
     };
 
     const sidebarClassName = cx({
@@ -252,7 +260,12 @@ function LayoutDefault({ children }) {
                     {userId ? (
                         <div className={cx('user-profile__right')}>
                             {renderConnectMetaMask()}
-                            <MenuProfile items={userMenu} onChange={handleOnChange} userInfo={userInfo} limmitedAccountTime={expriedTime}>
+                            <MenuProfile
+                                items={userMenu}
+                                onChange={handleOnChange}
+                                userInfo={userInfo}
+                                limmitedAccountTime={expriedTime}
+                            >
                                 <div className={cx('user-profile')}>
                                     {userInfo ? (
                                         <img

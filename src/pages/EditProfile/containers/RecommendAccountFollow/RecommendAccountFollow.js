@@ -46,7 +46,7 @@ function RecommendAccountFollow() {
       
     }
 
-    console.log({paginationState});
+    // console.log({paginationState});
     return (
         <div className={cx('recommend-account-follow')}>
             <div className={cx('heading-follow')}>

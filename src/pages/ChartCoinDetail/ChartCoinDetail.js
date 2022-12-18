@@ -7,7 +7,7 @@ import { numberWithCommas } from '~/helpers';
 
 function ChartCoinDetail({ data, typeFilter = 'day', time, symbol, canvasRef }) {
     let delayed;
-    console.log(data);
+    // console.log(data);
     const getLabelsCoinsDetailSorted = useMemo(() => {
         const dataCoinDetail = data.prices[typeFilter];
 

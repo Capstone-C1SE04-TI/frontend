@@ -23,7 +23,7 @@ function SharkWalletTransactionItem({ data, sharkAddress }) {
             return false;
         }
     }
-    console.log(data)
+
 
     return (
         <tr className={cx('tr-crypto__item')}>

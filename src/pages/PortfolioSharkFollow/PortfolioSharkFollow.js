@@ -27,7 +27,7 @@ function PortfolioSharkFollow() {
     const transactionHistory = useSelector(transactionHistorySelector);
     const loadingShark = useSelector(sharkLoadingSelector);
     const loadingTransaction = useSelector(loadingTransactionSelector);
-    console.log({ transactionHistory });
+    // console.log({ transactionHistory });
     useEffect(() => {
         dispatch(fetchSharkFollowed(userName.userId));
         // eslint-disable-next-line react-hooks/exhaustive-deps

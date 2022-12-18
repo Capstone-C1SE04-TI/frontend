@@ -40,7 +40,7 @@ function PortfolioSharkFollowItem({ userId, dataSharkFollowed, onChangeSharkSele
             onChangeSharkSelelected(dataSharkFollowed.sharkId)
         }
     }
-    console.log(dataSharkFollowed)
+    // console.log(dataSharkFollowed)
     return (
         <>
             <tr

@@ -7,14 +7,13 @@ import { useSelector, useDispatch } from 'react-redux';
 import { toast } from 'react-toastify';
 import { smartContractInfoSelector } from '~/modules/user/auth/selectors';
 import { ethers } from 'ethers';
-import { FUND_SUBSCRIPTION_ADDRESS, TI_SMART_CONTRACT_ADDRESS, FUND_SUBSCRIPTION_ABI, TI_ABI } from '~/abi';
+import { FUND_SUBSCRIPTION_ADDRESS, TI_SMART_CONTRACT_ADDRESS, FUND_SUBSCRIPTION_ABI, TI_ABI, API_CHECK_TRANSACTION } from '~/abi';
 import { useState, useEffect } from 'react';
 import styles from './BuyToken.module.scss';
 import ModalNotify from '~/components/ModalNotify';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBell } from '@fortawesome/free-regular-svg-icons';
 import { saveExpiredTime, saveSmartContractInfo, saveUserPremium } from '~/modules/user/auth/authSlice';
-import BuyItem from './BuyItem';
 import { convertUnixTime } from '~/helpers';
 import BuyLevel from './BuyLevel/BuyLevel';
 
@@ -83,10 +82,8 @@ function BuyToken() {
                 if (result) {
                     // dispatch(saveUserPremium(!!result));
                     const handleRequestStatus = async () => {
-                        const approveTokenStatus = await axios.get(
-                            `https://api-goerli.etherscan.io/api?module=transaction&action=getstatus&txhash=${txhash}&apikey=P4UEFZVG1N5ZYMPDKVQI7FFU7AZN742U3E`,
-                        );
-                        console.log({ approveTokenStatus: approveTokenStatus.data });
+                        const approveTokenStatus = await axios.get(API_CHECK_TRANSACTION(txhash));
+                        // console.log({ approveTokenStatus: approveTokenStatus.data });
                         if (approveTokenStatus.data.result.isError === '0') {
                             await onLoadExpriredTime();
                             toast.dismiss();
@@ -129,9 +126,7 @@ function BuyToken() {
                 if (result) {
                     // dispatch(saveUserPremium(!!result));
                     const handleRequestStatus = async () => {
-                        const approveTokenStatus = await axios.get(
-                            `https://api-goerli.etherscan.io/api?module=transaction&action=getstatus&txhash=${txhash}&apikey=P4UEFZVG1N5ZYMPDKVQI7FFU7AZN742U3E`,
-                        );
+                        const approveTokenStatus = await axios.get(API_CHECK_TRANSACTION(txhash));
 
                         if (approveTokenStatus.data.result.isError === '0') {
                             toast.dismiss();
